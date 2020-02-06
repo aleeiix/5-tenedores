@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useRef } from "react";
 import { StyleSheet, ScrollView, View, Text, Image } from "react-native";
 import { Divider } from "react-native-elements";
 import { withNavigation } from "react-navigation";
+import Toast from "react-native-easy-toast";
+
+import LoginForm from "./../../components/Account/LoginForm";
+import LoginFacebook from "./../../components/Account/LoginFacebook";
+import LoginGoogle from "./../../components/Account/LoginGoogle";
 
 function Login(props) {
   const { navigation } = props;
+  const toastRef = useRef();
 
   return (
     <ScrollView>
@@ -14,14 +20,15 @@ function Login(props) {
         resizeMode="contain"
       />
       <View style={styles.viewContainer}>
-        <Text>Form Login...</Text>
-        {/* <Text>Create Account...</Text> */}
-        <CreateAccount navigation={navigation}></CreateAccount>
+        <LoginForm toastRef={toastRef} />
+        <CreateAccount navigation={navigation} />
       </View>
       <Divider style={styles.divider} />
       <View style={styles.viewContainer}>
-        <Text>Login Facebook...</Text>
+        <LoginGoogle toastRef={toastRef} navigation={navigation} />
+        <LoginFacebook toastRef={toastRef} navigation={navigation} />
       </View>
+      <Toast ref={toastRef} position="center" opacity={0.5} />
     </ScrollView>
   );
 }
@@ -47,7 +54,7 @@ function CreateAccount(props) {
 const styles = StyleSheet.create({
   logo: {
     width: "100%",
-    height: 150,
+    height: 120,
     marginTop: 20
   },
   viewContainer: {
@@ -65,7 +72,10 @@ const styles = StyleSheet.create({
   },
   divider: {
     backgroundColor: "#00a680",
-    margin: 40
+    marginBottom: 25,
+    marginTop: 25,
+    marginLeft: 40,
+    marginRight: 40
   }
 });
 
