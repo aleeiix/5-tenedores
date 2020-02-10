@@ -12,7 +12,9 @@ export default function InfoUser(props) {
   const {
     userInfo: { uid, displayName, email, photoURL },
     setReloadData,
-    toastRef
+    toastRef,
+    setIsLoading,
+    setTextLoading
   } = props;
 
   const changeAvatar = async () => {
@@ -46,6 +48,8 @@ export default function InfoUser(props) {
   };
 
   const uploadImage = async (uri, nameImage) => {
+    setTextLoading("Actualizando avatar");
+    setIsLoading(true);
     const response = await fetch(uri);
     const blob = await response.blob();
     const ref = firebase
@@ -65,6 +69,7 @@ export default function InfoUser(props) {
         const update = { photoURL: result };
         await firebase.auth().currentUser.updateProfile(update);
         setReloadData(true);
+        setIsLoading(false);
       })
       .catch(() => {
         toastRef.current.show("Error al recupera el avatar del servidor");
