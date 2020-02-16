@@ -39,8 +39,6 @@ export default function AddRestaurantForm(props) {
     } else {
       setIsVisibleLoading(true);
       uploadImagesStorage(imagesSelected).then(arrayImage => {
-        console.log("BASE DE DATOS");
-
         db.collection("restaurants")
           .add({
             name: restaurantName,
@@ -68,8 +66,6 @@ export default function AddRestaurantForm(props) {
   };
 
   const uploadImagesStorage = async imageArray => {
-    console.log("IMAGENES");
-
     const imagesBlob = [];
     await Promise.all(
       imageArray.map(async image => {
