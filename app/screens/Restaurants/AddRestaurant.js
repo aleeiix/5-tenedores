@@ -9,18 +9,18 @@ export default function AddRestaurant(props) {
 
   const toastRef = useRef();
 
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisibleLoading, setIsVisibleLoading] = useState(false);
 
   return (
     <View>
       <AddRestaurantForm
         navigation={navigation}
         toastRef={toastRef}
-        setIsVisible={setIsVisible}
+        setIsVisibleLoading={setIsVisibleLoading}
       />
 
       <Toast ref={toastRef} position="center" opacity={0.5} />
-      <Loading isVisible={isVisible} text="Creando restaurante" />
+      <Loading isVisible={isVisibleLoading} text="Creando restaurante" />
     </View>
   );
 }
