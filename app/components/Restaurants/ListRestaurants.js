@@ -41,8 +41,6 @@ function Restaurant(props) {
   const [imageRestaurant, setImageRestaurant] = useState(null);
 
   useEffect(() => {
-    console.log(images);
-
     const image = images[0];
     firebase
       .storage()
