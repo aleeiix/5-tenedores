@@ -14,7 +14,7 @@ export default function ListRestaurants(props) {
   const { restaurants, isLoading, handleLoadMore } = props;
 
   return (
-    <View style={{ flex: 1 }}>
+    <View>
       {restaurants ? (
         <FlatList
           data={restaurants}
@@ -41,13 +41,17 @@ function Restaurant(props) {
   const [imageRestaurant, setImageRestaurant] = useState(null);
 
   useEffect(() => {
+    console.log(images);
+
     const image = images[0];
     firebase
       .storage()
       .ref(`restaurants/${image}`)
       .getDownloadURL()
-      .then(result => setImageRestaurant(result));
-  }, []);
+      .then(result => {
+        setImageRestaurant(result);
+      });
+  });
 
   return (
     <TouchableOpacity

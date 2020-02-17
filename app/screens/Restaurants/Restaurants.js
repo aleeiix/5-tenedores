@@ -10,7 +10,7 @@ import "firebase/firestore";
 const db = firebase.firestore(firebaseApp);
 
 export default function Restaurants(props) {
-  const limitRestaurants = 8;
+  const limitRestaurants = 12;
 
   const { navigation } = props;
 
@@ -28,29 +28,28 @@ export default function Restaurants(props) {
   }, []);
 
   useEffect(() => {
-    console.log("RELOAD");
     db.collection("restaurants")
       .get()
       .then(snap => {
-        console.log("SIZE ==> ", snap.size);
         setTotalRestaurants(snap.size);
       });
 
     (async () => {
       const resultRestaurants = [];
+
       const restaurants = db
         .collection("restaurants")
         .orderBy("createAt", "desc")
         .limit(limitRestaurants);
 
       await restaurants.get().then(response => {
-        setStartRestaurants(response.docs.length - 1);
+        setStartRestaurants(response.docs[response.docs.length - 1]);
 
         response.forEach(doc => {
-          const restaurant = Object.assign({}, { id: doc.id }, doc.data());
+          let restaurant = doc.data();
+          restaurant.id = doc.id;
           resultRestaurants.push({ restaurant });
         });
-
         setRestaurants(resultRestaurants);
       });
     })();
@@ -58,8 +57,6 @@ export default function Restaurants(props) {
   }, [isReloadRestaurants]);
 
   const handleLoadMore = async () => {
-    console.log("===> YEEEESSSS <===");
-
     const resultRestaurants = [];
     restaurants.length < totalRestaurants && setIsLoading(true);
 
@@ -70,7 +67,6 @@ export default function Restaurants(props) {
       .limit(limitRestaurants);
 
     await restaurantsDb.get().then(response => {
-      console.log(response);
       if (response.docs.length > 0) {
         setStartRestaurants(response.docs[response.docs.length - 1]);
       } else {
@@ -78,8 +74,9 @@ export default function Restaurants(props) {
       }
 
       response.forEach(doc => {
-        const restaurant = Object.assign({}, { id: doc.id }, doc.data());
-        resultRestaurants.push(restaurant);
+        let restaurant = doc.data();
+        restaurant.id = doc.id;
+        resultRestaurants.push({ restaurant });
       });
 
       setRestaurants([...restaurants, ...resultRestaurants]);
