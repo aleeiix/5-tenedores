@@ -28,12 +28,20 @@ export default function AddRestaurantForm(props) {
 
   const [restaurantName, setRestaurantName] = useState(null);
   const [restaurantAddress, setRestaurantAddress] = useState(null);
+  const [restaurantPhone, setRestaurantPhone] = useState(null);
+  const [restaurantEmail, setRestaurantEmail] = useState(null);
   const [restaurantDescription, setRestaurantDescription] = useState(null);
   const [isVisibleMap, setIsVisibleMap] = useState(false);
   const [locationRestaurant, setLocationRestaurant] = useState(null);
 
   const addRestaurant = () => {
-    if (!restaurantName || !restaurantAddress || !restaurantDescription) {
+    if (
+      !restaurantName ||
+      !restaurantAddress ||
+      !restaurantPhone ||
+      !restaurantEmail ||
+      !restaurantDescription
+    ) {
       toastRef.current.show("Todos los campos del formulario son obligatorios");
     } else if (imagesSelected.length === 0) {
       toastRef.current.show(
@@ -48,6 +56,8 @@ export default function AddRestaurantForm(props) {
           .add({
             name: restaurantName,
             address: restaurantAddress,
+            phone: restaurantPhone,
+            email: restaurantEmail,
             description: restaurantDescription,
             location: locationRestaurant,
             images: arrayImage,
@@ -97,6 +107,8 @@ export default function AddRestaurantForm(props) {
       <FormAdd
         setRestaurantName={setRestaurantName}
         setRestaurantAddress={setRestaurantAddress}
+        setRestaurantPhone={setRestaurantPhone}
+        setRestaurantEmail={setRestaurantEmail}
         setRestaurantDescription={setRestaurantDescription}
         setIsVisibleMap={setIsVisibleMap}
         locationRestaurant={locationRestaurant}
@@ -226,6 +238,8 @@ function FormAdd(props) {
   const {
     setRestaurantName,
     setRestaurantAddress,
+    setRestaurantPhone,
+    setRestaurantEmail,
     setRestaurantDescription,
     setIsVisibleMap,
     locationRestaurant
@@ -249,6 +263,18 @@ function FormAdd(props) {
           onPress: () => setIsVisibleMap(true)
         }}
         onChange={e => setRestaurantAddress(e.nativeEvent.text)}
+      />
+
+      <Input
+        placeholder="Telefono del restaurante"
+        containerStyle={styles.input}
+        onChange={e => setRestaurantPhone(e.nativeEvent.text)}
+      />
+
+      <Input
+        placeholder="Email del restaurante"
+        containerStyle={styles.input}
+        onChange={e => setRestaurantEmail(e.nativeEvent.text)}
       />
 
       <Input
