@@ -3,25 +3,34 @@ import MyAccountScreen from "../screens/Account/MyAccount";
 import LoginScreen from "../screens/Account/Login";
 import RegisterScreen from "../screens/Account/Register";
 
-const AccountScreenStacks = createStackNavigator({
-  MyAccount: {
-    screen: MyAccountScreen,
-    navigationOptions: () => ({
-      title: "Mi cuenta"
-    })
+const AccountScreenStacks = createStackNavigator(
+  {
+    MyAccount: {
+      screen: MyAccountScreen,
+      navigationOptions: () => ({
+        title: "Mi cuenta"
+      })
+    },
+    Login: {
+      screen: LoginScreen,
+      navigationOptions: () => ({
+        title: "Login"
+      })
+    },
+    Register: {
+      screen: RegisterScreen,
+      navigationOptions: () => ({
+        title: "Registro"
+      })
+    }
   },
-  Login: {
-    screen: LoginScreen,
-    navigationOptions: () => ({
-      title: "Login"
-    })
-  },
-  Register: {
-    screen: RegisterScreen,
-    navigationOptions: () => ({
-      title: "Registro"
-    })
+  {
+    defaultNavigationOptions: {
+      cardStyle: {
+        backgroundColor: "#FFFFFF"
+      }
+    }
   }
-});
+);
 
 export default AccountScreenStacks;

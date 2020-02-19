@@ -4,6 +4,7 @@ import { Rating, ListItem } from "react-native-elements";
 import * as firebase from "firebase";
 import Carousel from "./../../components/Carousel";
 import Map from "./../../components/Map";
+import ListReviews from "./../../components/Restaurants/ListReviews";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -33,7 +34,6 @@ export default function Restaurant(props) {
 
   return (
     <ScrollView style={styles.viewBody}>
-      <Text>Pagina del Restaurante</Text>
       <Carousel images={imagesRestaurant} width={screenWidth} height={200} />
       <TitleRestaurant
         name={restaurant.name}
@@ -47,6 +47,8 @@ export default function Restaurant(props) {
         phone={restaurant.phone}
         email={restaurant.email}
       />
+
+      <ListReviews navigation={navigation} idRestaurant={restaurant.id} />
     </ScrollView>
   );
 }

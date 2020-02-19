@@ -1,13 +1,22 @@
 import { createStackNavigator } from "react-navigation-stack";
 import SearchScreen from "./../screens/Search";
 
-const SearchScreenStacks = createStackNavigator({
-  Search: {
-    screen: SearchScreen,
-    navigationOptions: () => ({
-      title: "Busca tu restaurante"
-    })
+const SearchScreenStacks = createStackNavigator(
+  {
+    Search: {
+      screen: SearchScreen,
+      navigationOptions: () => ({
+        title: "Busca tu restaurante"
+      })
+    }
+  },
+  {
+    defaultNavigationOptions: {
+      cardStyle: {
+        backgroundColor: "#FFFFFF"
+      }
+    }
   }
-});
+);
 
 export default SearchScreenStacks;
