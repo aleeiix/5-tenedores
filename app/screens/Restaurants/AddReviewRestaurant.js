@@ -11,7 +11,7 @@ const db = firebase.firestore(firebaseApp);
 
 export default function AddReviewRestaurant(props) {
   const { navigation } = props;
-  const { idRestaurant } = navigation.state.params;
+  const { idRestaurant, setReviewsReload } = navigation.state.params;
 
   const toastRef = useRef();
 
@@ -71,6 +71,7 @@ export default function AddReviewRestaurant(props) {
         })
         .then(() => {
           setIsLoading(false);
+          setReviewsReload(true);
           navigation.goBack();
         });
     });

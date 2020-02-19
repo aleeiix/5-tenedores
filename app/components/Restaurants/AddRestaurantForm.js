@@ -219,6 +219,7 @@ function UploadImage(props) {
           color="#7A7A7A"
           containerStyle={styles.containerIcon}
           onPress={imageSelect}
+          underlayColor="transparent"
         />
       )}
 
